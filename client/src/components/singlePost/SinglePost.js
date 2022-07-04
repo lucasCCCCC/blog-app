@@ -1,12 +1,39 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 import "./singlepost.css"
 
 export default function SinglePost() {
+
+    const location = useLocation();
+    const path = location.pathname.split("/")[2];
+    const [post, setPost] = useState({})
+
+    useEffect(() => {
+
+        const getPost = async () => {
+            const res = await axios.get(`/posts/${path}`)
+            setPost(res.data)
+        };
+
+        getPost()
+
+    },[path])
+
   return (
+ 
     <div className="singlePost">
         <div className="singlePostWrapper">
-            <img src="https://db-service.toubiz.de/var/plain_site/storage/images/orte/zermatt/matterhorn/mueller-10-073/1370946-1-ger-DE/Mueller-10-073_front_large.jpg" alt="" className="singlePostImage"></img>
+
+            {post.photo && (
+                <img src={post.photo} alt=""
+                    className="singlePostImage">
+                </img>
+            )}
+            
             <h1 className="singePostTitle">
-                Lorem ipsum dolor sit amet consectetur adipiscing elit
+                
+                {post.title}
 
                 <div className="singlePostEdit">
                     <i className="singlePostIcon fa-regular fa-pen-to-square"></i>
@@ -16,24 +43,14 @@ export default function SinglePost() {
             </h1>
 
             <div className="singlePostInfo">
-                <span className="singlePostAuthor">Author: <b>Lucas</b></span>
-                <span className="singlePostDate">15 minutes ago</span>
+                <span className="singlePostAuthor">Author: <b>{post.usermame}</b></span>
+                <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
 
             </div>
 
             <p className="singlePostDescription">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Praesent vel tincidunt tortor. Vestibulum volutpat vulputate
-                est, sit amet feugiat urna ornare eu. Nullam ut lorem porttitor,
-                condimentum dui eget, lobortis felis. Vivamus dignissim mi eu 
-                venenatis sodales. Mauris pellentesque justo id tincidunt commodo.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent 
-                vel tincidunt tortor. Vestibulum volutpat vulputate est, sit amet 
-                feugiat urna ornare eu. Nullam ut lorem porttitor, condimentum dui eget, 
-                lobortis felis. Vivamus dignissim mi eu venenatis sodales. Mauris 
-                pellentesque justo id tincidunt commodo.
+                {post.description}
             </p>
-
 
         </div>
     </div>

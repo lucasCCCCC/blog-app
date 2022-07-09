@@ -1,21 +1,50 @@
+import axios from "axios";
+import { useContext, useRef } from "react"
 import { Link } from "react-router-dom"
+import { Context } from "../../Context/Context";
 import "./login.css"
 
 export default function Login() {
+
+  const userRef = useRef();
+  const passwordRef = useRef();
+  const {dispatch, isFetching} = useContext(Context)
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+    dispatch({ type: "LOGIN_START" });
+
+    try {
+
+      const res = await axios.post("/authentication/login", {
+        username: userRef.current.value,
+        password: passwordRef.current.value,
+
+      });
+
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE" });
+    }
+
+  };
+
   return (
     <div className="login">
 
         <span className="loginTitle">Login</span>
 
-        <form className="loginForm">
+        <form className="loginForm" onSubmit={handleSubmit}>
 
-            <label>Email</label>
-            <input className="loginInput" type="email" placeholder="Your E-Mail Address"></input>
+            <label>Username</label>
+            <input className="loginInput" type="text" placeholder="Your username" ref={userRef}></input>
 
             <label>Password</label>
-            <input className="loginInput" type="passsword" placeholder="Password"></input>
+            <input className="loginInput" type="password" placeholder="Password" ref={passwordRef}></input>
 
-            <button className="loginButton">Login</button>
+            <button className="loginButton" type="submit" disabled={isFetching}>Login</button>
          
         </form>
 

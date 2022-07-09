@@ -5,16 +5,13 @@ import Write from "./pages/write/Write";
 import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { useContext } from "react";
+import {BrowserRouter, Routes, Route,} from "react-router-dom";
+import { Context } from "./Context/Context";
 
 function App() {
 
-  const user = false;
+  const {user} = useContext(Context);
 
   return (
     <BrowserRouter>

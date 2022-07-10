@@ -2,20 +2,23 @@ import "./post.css"
 import {Link} from "react-router-dom";
 
 export default function Post({post}) {
+
+  const PUBLIC_FOLDER = "http://localhost:5000/imgs/"
+
   return (
     <div className="post">
 
       {post.photo && (
 
         <img className="postImage"
-          src={post.photo} alt="" 
+          src={PUBLIC_FOLDER + post.photo} alt="" 
           width="500px">
          </img>
       )}
 
         <div className="postInfo">
             <div className="postCategories">
-                {post.categories.map(c => {
+                {post.categories.map((c) => {
                   <span className = "postCategory">{c.name}</span>
                 })}
             </div>

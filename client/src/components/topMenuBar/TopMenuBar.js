@@ -43,7 +43,7 @@ export default function TopBar() {
       <div className="topRight">
         {
           user ? (
-            <img className="topProfileImage" src="https://i.imgflip.com/41j06n.png" alt=""/>
+            <img className="topProfileImage" src={user.profilePicture} alt=""/>
 
           ) : (
             <ul className="topList">

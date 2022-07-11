@@ -6,6 +6,8 @@ import "./topmenubar.css"
 export default function TopBar() {
 
   const {user, dispatch} = useContext(Context);
+  const PUBLIC_FOLDER = "http://localhost:5000/imgs/";
+
 
   const handleLogout = () => {
     dispatch({type:"LOGOUT"})
@@ -41,9 +43,12 @@ export default function TopBar() {
       </div>
 
       <div className="topRight">
+
         {
           user ? (
-            <img className="topProfileImage" src={user.profilePicture} alt=""/>
+            <Link to="/settings">
+              <img className="topProfileImage" src={PUBLIC_FOLDER+user.profilePicture} alt=""/>
+            </Link>
 
           ) : (
             <ul className="topList">

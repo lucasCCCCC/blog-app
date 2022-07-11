@@ -29,6 +29,9 @@
 
 .sidebarItem > p {
     padding: 30px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 13px;
+    line-height: 20px;
 }
 
 .sidebarItem > img {
